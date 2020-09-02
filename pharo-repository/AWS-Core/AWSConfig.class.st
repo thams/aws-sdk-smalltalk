@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'settingsDict'
 	],
-	#category : 'AWS-Core'
+	#category : #'AWS-Core'
 }
 
 { #category : #'instance creation' }
@@ -14,7 +14,17 @@ AWSConfig class >> default [
 
 { #category : #accessing }
 AWSConfig >> accessKeyId [
-	^self  at: #accessKeyId ifAbsent: []
+	| fl |
+	^ self
+		at: #accessKeyId
+		ifAbsentPut: [ | result |
+			result := OSPlatform current environment
+				at: 'AWS_ACCESS_KEY_ID'
+				ifAbsent: [ fl := FileLocator home / '.ssh/api-keys/aws_access_key_id'.
+					fl exists
+						ifTrue: [ fl contents trim ]
+						ifFalse: [  ] ].
+			result ]
 ]
 
 { #category : #accessing }
@@ -86,7 +96,18 @@ AWSConfig >> hostUrl: anObject [
 
 { #category : #accessing }
 AWSConfig >> regionName [
-	^ self at: #regionName ifAbsentPut: [ self defaultRegionName ]
+	"Note: uses defaultRegionName if none set"
+	^ self
+		at: #regionName
+		ifAbsentPut: [ | result |
+			result := OSPlatform current environment
+				at: 'AWS_REGION_NAME'
+				ifAbsent: [ | fl |
+					fl := FileLocator home / '.ssh/api-keys/aws_region_name'.
+					fl exists
+						ifTrue: [ fl contents trim ]
+						ifFalse: [ self defaultRegionName ] ].
+			result ]
 ]
 
 { #category : #accessing }
@@ -98,7 +119,17 @@ AWSConfig >> regionName: anObject [
 
 { #category : #accessing }
 AWSConfig >> secretKey [
-	^self  at: #secretKey ifAbsent: []
+	| fl |
+	^ self
+		at: #secretKey
+		ifAbsentPut: [ | result |
+			result := OSPlatform current environment
+				at: 'AWS_SECRET_KEY'
+				ifAbsent: [ fl := FileLocator home / '.ssh/api-keys/aws_secret_key'.
+					fl exists
+						ifTrue: [ fl contents trim ]
+						ifFalse: [  ] ].
+			result ]
 ]
 
 { #category : #accessing }
