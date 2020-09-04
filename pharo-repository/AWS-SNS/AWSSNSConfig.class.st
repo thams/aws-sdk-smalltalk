@@ -4,7 +4,7 @@ Class {
 	#classInstVars : [
 		'default'
 	],
-	#category : 'AWS-SNS'
+	#category : #'AWS-SNS'
 }
 
 { #category : #'instance creation' }
@@ -18,7 +18,7 @@ AWSSNSConfig class >> defaultSNSSetting [
 	| aws |
 	aws := self new.
 	aws serviceName:'sns'.
-	aws regionName: 'eu-west-1'.
+	aws regionName: 'us-east-1'.
 	^ aws
 ]
 
@@ -31,5 +31,3 @@ AWSSNSConfig class >> initialize [
 AWSSNSConfig >> defaultServiceName [
 	^ 'sns'
 ]
-
-
