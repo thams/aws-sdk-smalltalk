@@ -1,7 +1,7 @@
 Class {
 	#name : #BaselineOfAWS,
 	#superclass : #BaselineOf,
-	#category : 'BaselineOfAWS'
+	#category : #BaselineOfAWS
 }
 
 { #category : #baselines }
@@ -41,5 +41,6 @@ BaselineOfAWS >> baseline: spec [
 				package: 'AWS-ElasticTranscoder' with: [ spec requires: #('AWS-Core') ];
 				package: 'AWS-STS' with: [ spec requires: #('AWS-Core') ];
 				package: 'AWS-CloudFront' with: [ spec requires: #('AWS-Core') ];
-				package: 'AWS-SNS' with: [ spec requires: #('AWS-Core' 'XMLParser') ] ].
+				package: 'AWS-SNS' with: [ spec requires: #('AWS-Core' 'XMLParser') ];
+				package: 'AWS-CloudWatchLogs' with: [ spec requires: #('AWS-Core' 'XMLParser') ] ].
 ]
